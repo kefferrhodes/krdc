@@ -11,7 +11,7 @@
         }
         #inputArea {
             padding: 1rem;
-            background: #f0f0f0;
+            background: #1e1e1e;
             display: flex;
             justify-content: center;
         }
@@ -19,6 +19,10 @@
             font-size: 1.2rem;
             padding: 0.5rem;
             width: 200px;
+            border-radius: 10px;
+            border: none;
+            background-color: #333;
+            color: #fff;
         }
         .row {
             display: flex;
@@ -54,13 +58,27 @@
             color: #fff;
             text-shadow: 0 0 4px rgba(0,0,0,0.6);
         }
+        #randomBtn {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            background-color: #1e1e1e;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            z-index: 9999;
+        }
     </style>
 </head>
 <body>
 <div id="inputArea">
     <input type="text" id="hexInput" placeholder="#005EB8" />
-    <button id="randomBtn" style="margin-left: 1rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer;">Random Color</button>
 </div>
+<button id="randomBtn">Random Color</button>
 <div id="paletteContainer"></div>
 
 <script>
@@ -211,7 +229,7 @@
     document.getElementById("hexInput").addEventListener("change", e => {
         const value = e.target.value.trim();
         if (/^#?[0-9A-Fa-f]{6}$/.test(value)) {
-            const hex = value.startsWith("#") ? value : `#${value}`;
+            const hex = (value.startsWith("#") ? value : `#${value}`).toUpperCase();
             displayPalette(hex);
         }
     });
@@ -225,11 +243,11 @@
     }
 
     const randomHex = getRandomColor();
-    document.getElementById("hexInput").value = randomHex;
+    document.getElementById("hexInput").value = randomHex.toUpperCase();
     displayPalette(randomHex);
 
     document.getElementById("randomBtn").addEventListener("click", () => {
-        const hex = getRandomColor();
+        const hex = getRandomColor().toUpperCase();
         document.getElementById("hexInput").value = hex;
         displayPalette(hex);
     });
